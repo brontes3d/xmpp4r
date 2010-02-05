@@ -7,7 +7,7 @@ require 'xmpp4r'
 
 # Jabber::debug = true
 
-class ReliableListenerTest < Test::Unit::TestCase
+class ReliableListenerMockedTest < Test::Unit::TestCase
   
   class TestListener < Jabber::Reliable::Listener
     attr_accessor :received_messages

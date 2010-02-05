@@ -92,7 +92,7 @@ module Jabber
         if where_failed == :sending
           @message_to_send_on_reconnect = @message_now_sending
         end
-        if where_failed != :close && !@connection.is_connected?
+        if where_failed != :close && @connection && !@connection.is_connected?
           @reconnection_thread.raise(e)
         end
       end
@@ -115,6 +115,7 @@ module Jabber
       #Stop the listener. (close the connection)
       def stop
         @connection.close if @connection and @connection.is_connected?
+        @reconnection_thread.kill if @reconnection_thread and @reconnection_thread.alive?
         @connection = nil
       end
       
